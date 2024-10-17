@@ -1,0 +1,26 @@
+.hamburger-btn {
+  width: 35px;
+  height: 24px;
+  vertical-align: middle;
+  background-color: red;
+  position: relative;
+}
+
+.hamburger-top,
+.hamburger-middle,
+.hamburger-bottom {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: darkviolet;
+}
+.hamburger-middle {
+  transform: translateY(10px);
+}
+
+.hamburger-bottom {
+  transform: translateY(20px);
+}
