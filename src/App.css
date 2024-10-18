@@ -1,14 +1,15 @@
 .hamburger-btn {
-  width: 35px;
+  width: 33px;
   height: 24px;
   vertical-align: middle;
-  background-color: red;
   position: relative;
+  transition: all 0.3s;
 }
 
 .hamburger-top,
 .hamburger-middle,
 .hamburger-bottom {
+  transition: all 0.22s;
   content: "";
   position: absolute;
   top: 0;
@@ -23,4 +24,15 @@
 
 .hamburger-bottom {
   transform: translateY(20px);
+}
+
+.open .hamburger-top {
+  transform: rotate(45deg) translateX(7px) translateY(6px);
+}
+.open .hamburger-bottom {
+  transform: rotate(-45deg) translateX(-6px) translateY(7px);
+}
+
+.open .hamburger-middle {
+  display: none;
 }
