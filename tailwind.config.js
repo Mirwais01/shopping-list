@@ -9,6 +9,9 @@ module.exports = {
         lightViolet: "#D862BC",
         darkViolet: "#8644A2",
       },
+      fontFamily: {
+        Roboto: "Roboto",
+      },
     },
   },
   plugins: [],

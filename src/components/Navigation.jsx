@@ -10,7 +10,7 @@ export default function Navigation() {
   return (
     <div className="container mx-auto relative">
       <nav className="flex justify-between items-center md:px-12 px-6 md:py-8 py-5">
-        <h1 className="text-2xl font-bold text-darkViolet">Shopping List</h1>
+        <h1 className="text-2xl font-black text-darkViolet">Shopping List</h1>
         {/* desctop menu  */}
         <ul className="hidden md:items-center md:flex gap-9 text-darkViolet md:text-base">
           <li className="group cursor-pointer ">
