@@ -14,7 +14,7 @@ function Main() {
             You can save your notes and items savely and clearly.
           </p>
 
-          <button className="bg-lightAntique rounded-full px-12 py-3 my-6 md:my-8 hover:bg-[#fcdd83]">
+          <button className="bg-lightAntique border border-[#f9d360] rounded-full px-12 py-3 my-6 md:my-8 hover:bg-[#fcdd83]">
             Create List
           </button>
         </div>
