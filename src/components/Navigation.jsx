@@ -9,6 +9,7 @@ export default function Navigation() {
 
   return (
     <div className="container mx-auto relative">
+      {/* desctop menu  */}
       <nav className="flex justify-between items-center md:px-12 px-6 md:py-8 py-5">
         <h1 className="text-2xl font-black text-darkViolet">Shopping List</h1>
         {/* desctop menu  */}

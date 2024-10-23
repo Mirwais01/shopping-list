@@ -1,4 +1,5 @@
 import Navigation from "./Navigation";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
@@ -19,7 +20,7 @@ function Home() {
             </p>
 
             <button className="bg-lightAntique border border-[#f9d360] rounded-full px-12 py-3 my-6 md:my-8 hover:bg-[#fcdd83]">
-              Create List
+              <Link to={"/CreateList"}>Create List</Link>
             </button>
           </div>
         </div>
