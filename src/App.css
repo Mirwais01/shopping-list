@@ -45,3 +45,8 @@
   outline-color: #8644a2;
   border-radius: 10px;
 }
+.save-btn {
+  border-radius: 10px;
+  font-size: 15px;
+  color: #ffff;
+}
