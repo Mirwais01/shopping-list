@@ -36,3 +36,12 @@
 .open .hamburger-middle {
   display: none;
 }
+.active {
+  color: #f336c7;
+}
+.input-createlist {
+  /* border border-darkViolet  outline-darkViolet  rounded-lg  */
+  border: 1px solid #8644a2;
+  outline-color: #8644a2;
+  border-radius: 10px;
+}

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import "../App.css";
 export default function Navigation() {
   const [menu, setMenu] = useState(false);
 
@@ -16,19 +17,19 @@ export default function Navigation() {
         <ul className="hidden md:items-center md:flex gap-9 text-darkViolet md:text-base">
           <li className="group cursor-pointer ">
             <span className="group-hover:text-lightViolet">
-              <Link to={"/"}>Home</Link>
+              <NavLink to={"/"}>Home</NavLink>
             </span>
             <div className="group-hover:border-b-2 group-hover:border-b-lightViolet mx-2"></div>
           </li>
           <li className="group cursor-pointer ">
             <span className="group-hover:text-lightViolet">
-              <Link to={"/About"}>About</Link>
+              <NavLink to={"/About"}>About</NavLink>
             </span>
             <div className="group-hover:border-b-2 group-hover:border-b-lightViolet mx-2"></div>
           </li>
           <li className="group cursor-pointer ">
             <span className="group-hover:text-lightViolet">
-              <Link to={"/Contact"}>Contact</Link>
+              <NavLink to={"/Contact"}>Contact</NavLink>
             </span>
             <div className="group-hover:border-b-2 group-hover:border-b-lightViolet mx-2"></div>
           </li>
