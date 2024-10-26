@@ -36,6 +36,11 @@ export default function CreateList() {
     setPrice(0);
   }
 
+  function handleIsShow(e) {
+    e.preventDefault();
+    setIsShow(() => !isShow);
+  }
+
   return (
     <div>
       <Navigation />
@@ -84,22 +89,10 @@ export default function CreateList() {
 
             <div className="flex justify-between mx-3">
               <div className="space-x-2">
-                <button className="save-btn md:px-7 py-2 px-3 sm:px-4 bg-green-600">
-                  Save List
-                </button>
-                <button className="save-btn md:px-7 py-2 px-3 sm:px-4 bg-red-500">
-                  Clear List
-                </button>
+                <Button bgColor={"rgb(22 163 74)"}>Save List</Button>
+                <Button bgColor={"rgb(225 29 72)"}>Clear List</Button>
               </div>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setIsShow(!isShow);
-                }}
-                className="rounded-full text-white bg-green-600 w-10 h-10 text-xl"
-              >
-                +
-              </button>
+              <PlusBtn handleIsShow={handleIsShow} />
             </div>
           </div>
         </form>
@@ -128,10 +121,26 @@ function ListItem({ item }) {
   );
 }
 
-function Button({ children }) {
+function Button({ children, bgColor }) {
   return (
-    <button className="save-btn md:px-7 py-2 px-3 sm:px-4 bg-green-600">
+    <button
+      style={{
+        backgroundColor: `${bgColor}`,
+      }}
+      className="save-btn md:px-7 py-2 px-3 sm:px-4"
+    >
       {children}
+    </button>
+  );
+}
+
+function PlusBtn({ handleIsShow }) {
+  return (
+    <button
+      onClick={(e) => handleIsShow(e)}
+      className="rounded-full text-white bg-green-600 w-10 h-10 text-xl"
+    >
+      +
     </button>
   );
 }
