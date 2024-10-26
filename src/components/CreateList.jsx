@@ -11,20 +11,29 @@ const myList = [
 
 export default function CreateList() {
   const [items, setItems] = useState(myList);
+  const [isShow, setIsShow] = useState(false);
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(0);
   const [price, setPrice] = useState(0);
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!name || !quantity) return;
 
-    const newFriend = {
+    const newItem = {
       name,
       quantity,
       price,
       checked: false,
     };
-    console.log(newFriend);
+    addItem(newItem);
+  }
+
+  function addItem(newItem) {
+    setItems([...items, newItem]);
+    setName("");
+    setQuantity(0);
+    setPrice(0);
   }
 
   return (
@@ -46,45 +55,49 @@ export default function CreateList() {
             />
 
             <div>
-              <ul>
-                {myList.map((el) => (
-                  <List item={el} key={el.id} />
-                ))}
-              </ul>
+              <List items={items} />
             </div>
 
             {/* input of add item */}
-            <div className="flex mx-3 space-x-2">
-              <input
-                onChange={(e) => setName(e.target.value)}
-                type="text"
-                className="w-1/3 text-sm sm:text-base px-2 py-2 input-createlist"
-                placeholder="Item-name"
-              />
-              <input
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                type="number"
-                className="py-2 w-1/3 input-createlist text-center px-2"
-                placeholder="Count"
-              />
-              <input
-                onChange={(e) => setPrice(Number(e.target.value))}
-                type="number"
-                className="py-2 w-1/3 input-createlist text-center px-2"
-                placeholder="price"
-              />
-            </div>
+            {isShow && (
+              <div className="flex mx-3 space-x-2">
+                <input
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  className="w-1/3 text-sm sm:text-base px-2 py-2 input-createlist"
+                  placeholder="Item-name"
+                />
+                <input
+                  onChange={(e) => setQuantity(Number(e.target.value))}
+                  type="number"
+                  className="py-2 w-1/3 input-createlist text-center px-2"
+                  placeholder="Count"
+                />
+                <input
+                  onChange={(e) => setPrice(Number(e.target.value))}
+                  type="number"
+                  className="py-2 w-1/3 input-createlist text-center px-2"
+                  placeholder="price"
+                />
+              </div>
+            )}
 
             <div className="flex justify-between mx-3">
               <div className="space-x-2">
-                <button className="save-btn md:px-7 py-2 px-3 sm:px-4  bg-green-600">
+                <button className="save-btn md:px-7 py-2 px-3 sm:px-4 bg-green-600">
                   Save List
                 </button>
                 <button className="save-btn md:px-7 py-2 px-3 sm:px-4 bg-red-500">
                   Clear List
                 </button>
               </div>
-              <button className="rounded-full text-white bg-green-600 w-10 h-10 text-xl">
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsShow(!isShow);
+                }}
+                className="rounded-full text-white bg-green-600 w-10 h-10 text-xl"
+              >
                 +
               </button>
             </div>
@@ -95,12 +108,30 @@ export default function CreateList() {
   );
 }
 
-function List({ item }) {
+function List({ items }) {
+  return (
+    <ul className="space-y-3">
+      {items.map((el) => (
+        <ListItem item={el} key={el.id} />
+      ))}
+    </ul>
+  );
+}
+
+function ListItem({ item }) {
   return (
     <li className="grid grid-cols-3 mx-3 rounded-lg bg-gray-300 divide-dotted divide-x-2 divide-darkViolet space-x-6 px-3 py-2">
       <span>{item.name}</span>
       <span>{item.quantity}</span>
       <span>{item.price}</span>
     </li>
+  );
+}
+
+function Button({ children }) {
+  return (
+    <button className="save-btn md:px-7 py-2 px-3 sm:px-4 bg-green-600">
+      {children}
+    </button>
   );
 }
