@@ -13,8 +13,8 @@ export default function CreateList() {
   const [items, setItems] = useState(myList);
   const [isShow, setIsShow] = useState(false);
   const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState(0);
-  const [price, setPrice] = useState(0);
+  const [quantity, setQuantity] = useState("");
+  const [price, setPrice] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -39,6 +39,10 @@ export default function CreateList() {
   function handleIsShow(e) {
     e.preventDefault();
     setIsShow(() => !isShow);
+  }
+
+  function clearList() {
+    setItems([]);
   }
 
   return (
@@ -67,18 +71,21 @@ export default function CreateList() {
             {isShow && (
               <div className="flex mx-3 space-x-2">
                 <input
+                  value={name}
                   onChange={(e) => setName(e.target.value)}
                   type="text"
                   className="w-1/3 text-sm sm:text-base px-2 py-2 input-createlist"
                   placeholder="Item-name"
                 />
                 <input
+                  value={quantity}
                   onChange={(e) => setQuantity(Number(e.target.value))}
                   type="number"
                   className="py-2 w-1/3 input-createlist text-center px-2"
                   placeholder="Count"
                 />
                 <input
+                  value={price}
                   onChange={(e) => setPrice(Number(e.target.value))}
                   type="number"
                   className="py-2 w-1/3 input-createlist text-center px-2"
@@ -89,8 +96,12 @@ export default function CreateList() {
 
             <div className="flex justify-between mx-3">
               <div className="space-x-2">
-                <Button bgColor={"rgb(22 163 74)"}>Save List</Button>
-                <Button bgColor={"rgb(225 29 72)"}>Clear List</Button>
+                <Button clickOn={handleSubmit} bgColor={"rgb(22 163 74)"}>
+                  Add to List
+                </Button>
+                <Button clickOn={clearList} bgColor={"rgb(225 29 72)"}>
+                  Clear List
+                </Button>
               </div>
               <PlusBtn handleIsShow={handleIsShow} />
             </div>
@@ -121,9 +132,10 @@ function ListItem({ item }) {
   );
 }
 
-function Button({ children, bgColor }) {
+function Button({ children, bgColor, clickOn }) {
   return (
     <button
+      onClick={clickOn}
       style={{
         backgroundColor: `${bgColor}`,
       }}
