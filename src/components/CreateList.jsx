@@ -55,17 +55,10 @@ export default function CreateList() {
         </h1>
         <div className="w-52 mt-4 h-0.5 mx-auto bg-darkViolet"></div>
 
-        <form action="" onSubmit={(e) => handleSubmit(e)}>
-          <div className="flex flex-col mt-12 space-y-4">
-            <div>
-              <input
-                type="text"
-                placeholder="Enter your list name..."
-                className="px-2 w-3/4 text-lg py-2 mx-3 input-createlist"
-              />
-              <PlusBtn bgColor={"#8644A2"}>&#10003;</PlusBtn>
-            </div>
+        <TitleCom />
 
+        <form action="" onSubmit={(e) => handleSubmit(e)}>
+          <div className="flex flex-col mt-7 space-y-4">
             <div>
               <List items={items} />
             </div>
@@ -106,7 +99,7 @@ export default function CreateList() {
                   Clear List
                 </Button>
               </div>
-              <PlusBtn bgColor={"#8644A2"} handleIsShow={handleIsShow}>
+              <PlusBtn bgColor={"#8644A2"} clickOn={handleIsShow}>
                 &#43;
               </PlusBtn>
             </div>
@@ -137,6 +130,36 @@ function ListItem({ item }) {
   );
 }
 
+function TitleCom() {
+  const [title, setTitle] = useState("");
+  const [showTitle, setShowTitle] = useState(false);
+
+  function handleTitle(e) {
+    e.preventDefault();
+    setShowTitle((showTitle) => !showTitle);
+  }
+
+  return (
+    <form>
+      <div className="flex justify-center mt-9 items-center space-x-4">
+        {showTitle && <h1 className="text-xl">{title}</h1>}
+        {!showTitle && (
+          <input
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            type="text"
+            placeholder="Enter your list name..."
+            className="px-2 w-3/4 text-lg py-2 mx-3 input-createlist"
+          />
+        )}
+        <PlusBtn clickOn={handleTitle} bgColor={"#8644A2"}>
+          {showTitle ? <span>&#9998;</span> : <span>&#10003;</span>}
+        </PlusBtn>
+      </div>
+    </form>
+  );
+}
+
 function Button({ children, bgColor, clickOn }) {
   return (
     <button
@@ -151,10 +174,10 @@ function Button({ children, bgColor, clickOn }) {
   );
 }
 
-function PlusBtn({ children, handleIsShow, bgColor }) {
+function PlusBtn({ children, clickOn, bgColor }) {
   return (
     <button
-      onClick={(e) => handleIsShow(e)}
+      onClick={(e) => clickOn(e)}
       style={{ backgroundColor: `${bgColor}` }}
       className="rounded-full text-white w-10 h-10 text-xl"
     >
