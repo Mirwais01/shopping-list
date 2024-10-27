@@ -1,5 +1,5 @@
 import Navigation from "./Navigation";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Home() {
   return (
@@ -11,17 +11,20 @@ function Home() {
             <img src="SEO-Checklist.png" alt="" />
           </div>
 
-          <div className="md:order-1 md:flex-1 text-center md:text-left md:mb-32">
-            <h1 className="md:text-6xl text-3xl mt-8 mb-6  font-black md:max-w-lg">
+          <div className="md:order-1 md:flex-1 space-y-6 text-center md:text-left md:mb-32">
+            <h1 className="md:text-6xl text-3xl font-black md:max-w-lg">
               Welcome to Shopping List app
             </h1>
             <p className="opacity-75">
               You can save your notes and items savely and clearly.
             </p>
 
-            <button className="bg-lightAntique border border-[#f9d360] rounded-full px-12 py-3 my-6 md:my-8 hover:bg-[#fcdd83]">
-              <Link to={"/CreateList"}>Create List</Link>
-            </button>
+            <Link
+              className="bg-lightAntique inline-block border border-[#f9d360] rounded-full px-12 py-3 hover:bg-[#fcdd83]"
+              to={"/CreateList"}
+            >
+              Create List
+            </Link>
           </div>
         </div>
       </div>

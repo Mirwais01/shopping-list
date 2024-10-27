@@ -57,11 +57,14 @@ export default function CreateList() {
 
         <form action="" onSubmit={(e) => handleSubmit(e)}>
           <div className="flex flex-col mt-12 space-y-4">
-            <input
-              type="text"
-              placeholder="Enter your list name..."
-              className="px-2 text-lg py-2 mx-3 input-createlist"
-            />
+            <div>
+              <input
+                type="text"
+                placeholder="Enter your list name..."
+                className="px-2 w-3/4 text-lg py-2 mx-3 input-createlist"
+              />
+              <PlusBtn bgColor={"#8644A2"}>&#10003;</PlusBtn>
+            </div>
 
             <div>
               <List items={items} />
@@ -96,14 +99,16 @@ export default function CreateList() {
 
             <div className="flex justify-between mx-3">
               <div className="space-x-2">
-                <Button clickOn={handleSubmit} bgColor={"rgb(22 163 74)"}>
+                <Button clickOn={handleSubmit} bgColor={"#8644A2"}>
                   Add to List
                 </Button>
-                <Button clickOn={clearList} bgColor={"rgb(225 29 72)"}>
+                <Button clickOn={clearList} bgColor={"#CC2B52"}>
                   Clear List
                 </Button>
               </div>
-              <PlusBtn handleIsShow={handleIsShow} />
+              <PlusBtn bgColor={"#8644A2"} handleIsShow={handleIsShow}>
+                &#43;
+              </PlusBtn>
             </div>
           </div>
         </form>
@@ -146,13 +151,14 @@ function Button({ children, bgColor, clickOn }) {
   );
 }
 
-function PlusBtn({ handleIsShow }) {
+function PlusBtn({ children, handleIsShow, bgColor }) {
   return (
     <button
       onClick={(e) => handleIsShow(e)}
-      className="rounded-full text-white bg-green-600 w-10 h-10 text-xl"
+      style={{ backgroundColor: `${bgColor}` }}
+      className="rounded-full text-white w-10 h-10 text-xl"
     >
-      +
+      {children}
     </button>
   );
 }
