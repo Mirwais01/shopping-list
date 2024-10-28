@@ -127,12 +127,15 @@ function List({ items }) {
 
 function ListItem({ item }) {
   return (
-    <li className="grid grid-cols-5 mx-3 bg-gray-200 divide-dotted divide-x-2 divide-darkViolet space-x-6 px-3 py-2">
+    <li className="grid grid-cols-5 items-center mx-3 bg-gray-200 divide-dotted divide-x-2 divide-darkViolet space-x-6 px-3 py-2">
       <span>{item.name}</span>
       <span>{item.quantity}</span>
       <span>{item.unit}</span>
       <span>{item.price}</span>
-      <span>+, -</span>
+      <span>
+        <EditItemBtn bgColor={"#CC2B52"}>&#215;</EditItemBtn>
+        <EditItemBtn bgColor={"#8644A2"}>&#10003;</EditItemBtn>
+      </span>
     </li>
   );
 }
@@ -190,8 +193,24 @@ function PlusBtn({ children, clickOn, bgColor }) {
   return (
     <button
       onClick={(e) => clickOn(e)}
-      style={{ backgroundColor: `${bgColor}` }}
+      style={{
+        backgroundColor: `${bgColor}`,
+      }}
       className="rounded-full text-white w-10 h-10 text-xl"
+    >
+      {children}
+    </button>
+  );
+}
+
+function EditItemBtn({ children, clickOn, bgColor }) {
+  return (
+    <button
+      onClick={(e) => clickOn(e)}
+      style={{
+        backgroundColor: `${bgColor}`,
+      }}
+      className="rounded-full text-white w-8 h-8 mx-1 text-xl"
     >
       {children}
     </button>
