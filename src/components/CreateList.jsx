@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "./Navigation";
 
 const myList = [
@@ -18,31 +18,19 @@ const myList = [
 
 export default function CreateList() {
   const [items, setItems] = useState(myList);
-  const [name, setName] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [unit, setUnit] = useState("");
-  const [price, setPrice] = useState("");
+  // const [newItems, setnewItemsCount] = useState([]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (!name || !quantity) return;
-
-    const newItem = {
-      name,
-      quantity,
-      unit,
-      price,
-      checked: false,
-    };
-    addItem(newItem);
   }
 
   function addItem(newItem) {
     setItems([...items, newItem]);
-    setName("");
-    setQuantity(0);
-    setPrice(0);
   }
+
+  // function handleItemsCount() {
+  //   setnewItemsCount(newIte);
+  // }
 
   function clearList() {
     window.confirm("Are you sure to clear the list?") && setItems([]);
@@ -66,36 +54,7 @@ export default function CreateList() {
               <List items={items} />
             </div>
             {/* input of add item */}
-            <div className="grid grid-cols-5 mx-3 space-x-2 divide-x-2 divide-dashed divide-gray-400 border border-gray-300">
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                type="text"
-                className="text-sm col-span-2 sm:text-base px-2 py-2 input-createlist"
-                placeholder="Item-name"
-              />
-              <input
-                value={quantity}
-                onChange={(e) => setQuantity(Number(e.target.value))}
-                type="number"
-                className="py-2 input-createlist px-2"
-                placeholder="Count"
-              />
-              <input
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-                type="text"
-                className="py-2 input-createlist px-2"
-                placeholder="Unit"
-              />
-              <input
-                value={price}
-                onChange={(e) => setPrice(Number(e.target.value))}
-                type="number"
-                className="py-2 input-createlist px-2"
-                placeholder="price"
-              />
-            </div>
+            <GiveItem addItem={addItem} />
 
             <div className="flex justify-between mx-3">
               <div className="space-x-2">
@@ -115,6 +74,70 @@ export default function CreateList() {
   );
 }
 
+function GiveItem({ addItem }) {
+  const [name, setName] = useState("");
+  const [quantity, setQuantity] = useState("");
+  const [unit, setUnit] = useState("");
+  const [price, setPrice] = useState("");
+
+  function handleAddItem(e) {
+    e.preventDefault();
+    if (!name || !quantity) return;
+
+    const newItem = {
+      name,
+      quantity,
+      unit,
+      price,
+      checked: false,
+    };
+    addItem(newItem);
+    setName("");
+    setQuantity(0);
+    setPrice(0);
+  }
+
+  return (
+    <form
+      onSubmit={(e) => handleAddItem(e)}
+      className="grid grid-cols-6 items-center mx-3 space-x-2 divide-x-2 divide-dashed divide-gray-400 border border-gray-300"
+    >
+      <input
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        type="text"
+        className="text-sm col-span-2 sm:text-base px-2 py-2 input-createlist"
+        placeholder="Item-name"
+      />
+      <input
+        value={quantity}
+        onChange={(e) => setQuantity(Number(e.target.value))}
+        type="number"
+        className="py-2 input-createlist px-2"
+        placeholder="Count"
+      />
+      <input
+        value={unit}
+        onChange={(e) => setUnit(e.target.value)}
+        type="text"
+        className="py-2 input-createlist px-2"
+        placeholder="Unit"
+      />
+      <input
+        value={price}
+        onChange={(e) => setPrice(Number(e.target.value))}
+        type="number"
+        className="py-2 input-createlist px-2"
+        placeholder="price"
+      />
+      <span>
+        <EditItemBtn bgColor={"#CC2B52"}>&#215;</EditItemBtn>
+        <EditItemBtn bgColor={"#8644A2"}>&#10003;</EditItemBtn>
+      </span>
+    </form>
+  );
+}
+
 function List({ items }) {
   return (
     <ul className="space-y-3">
@@ -127,15 +150,14 @@ function List({ items }) {
 
 function ListItem({ item }) {
   return (
-    <li className="grid grid-cols-5 items-center mx-3 bg-gray-200 divide-dotted divide-x-2 divide-darkViolet space-x-6 px-3 py-2">
-      <span>{item.name}</span>
-      <span>{item.quantity}</span>
-      <span>{item.unit}</span>
-      <span>{item.price}</span>
-      <span>
-        <EditItemBtn bgColor={"#CC2B52"}>&#215;</EditItemBtn>
-        <EditItemBtn bgColor={"#8644A2"}>&#10003;</EditItemBtn>
-      </span>
+    <li className="flex justify-between px-4 mx-3 bg-gray-100 py-3">
+      <p>
+        {item.name}({item.quantity} {item.unit} , price : {item.price})
+      </p>
+      <div className="space-x-4">
+        <EditListItemBtn color={"green"}>&#9998; Edit</EditListItemBtn>
+        <EditListItemBtn color={"#CC2B52"}>&#10006; Delete</EditListItemBtn>
+      </div>
     </li>
   );
 }
@@ -211,6 +233,18 @@ function EditItemBtn({ children, clickOn, bgColor }) {
         backgroundColor: `${bgColor}`,
       }}
       className="rounded-full text-white w-8 h-8 mx-1 text-xl"
+    >
+      {children}
+    </button>
+  );
+}
+
+function EditListItemBtn({ children, clickOn, color }) {
+  return (
+    <button
+      onClick={(e) => clickOn(e)}
+      style={{ color: `${color}` }}
+      className="mx-1 px-2 text-sm border border-gray-300"
     >
       {children}
     </button>
