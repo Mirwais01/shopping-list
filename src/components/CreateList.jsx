@@ -16,6 +16,7 @@ export default function CreateList() {
   const [items, setItems] = useState(myList);
 
   function addItem(newItem) {
+    console.log(newItem);
     setItems([...items, newItem]);
   }
 
@@ -25,7 +26,16 @@ export default function CreateList() {
 
   //////////////////////////////
   function handleItemsCount() {
-    addItem();
+    const newId = crypto.randomUUID();
+    const newItem = {
+      id: newId,
+      name: "",
+      quantity: 0,
+      unit: "",
+      price: 0,
+      checked: false,
+    };
+    addItem(newItem);
   }
 
   function handleDeleteItem(itemId) {
@@ -52,7 +62,8 @@ export default function CreateList() {
               <ul className="space-y-4">
                 {items.map((item) => (
                   <GiveItem
-                    // key={item.id}
+                    item={item}
+                    key={item.id}
                     addItem={addItem}
                     onDelete={handleDeleteItem}
                   />
@@ -79,33 +90,38 @@ export default function CreateList() {
   );
 }
 
-function GiveItem({ addItem, onDelete }) {
+function GiveItem({ onDelete, item }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
   const [price, setPrice] = useState("");
-  const id = crypto.randomUUID();
-  function handleAddItem(e) {
+
+  // const id = crypto.randomUUID();
+  function handleSubmit(e) {
     e.preventDefault();
-    if (!name || !quantity) return;
-    const newItem = {
-      id,
-      name,
-      quantity,
-      unit,
-      price,
-      checked: false,
-    };
-    addItem(newItem);
+    // if (!name || !quantity) return;
+    // const newItem = {
+    //   id,
+    //   name,
+    //   quantity,
+    //   unit,
+    //   price,
+    //   checked: false,
+    // };
+    // addItem(newItem);
     // setName("");
     // setQuantity(0);
     // setPrice(0);
   }
 
+  function handleDeleteItem() {
+    onDelete(item.id);
+  }
+
   return (
     <li>
       <form
-        onSubmit={(e) => handleAddItem(e)}
+        onSubmit={(e) => handleSubmit(e)}
         className="grid grid-cols-6 items-center mx-3 space-x-2 divide-x-2 divide-dashed divide-gray-400 border border-gray-300"
       >
         <input
@@ -137,7 +153,7 @@ function GiveItem({ addItem, onDelete }) {
           placeholder="price"
         />
         <span>
-          <EditItemBtn clickOn={onDelete} bgColor={"#CC2B52"}>
+          <EditItemBtn clickOn={handleDeleteItem} bgColor={"#CC2B52"}>
             &#215;
           </EditItemBtn>
           <EditItemBtn bgColor={"#8644A2"}>&#10003;</EditItemBtn>
@@ -237,7 +253,7 @@ function PlusBtn({ children, clickOn, bgColor }) {
 function EditItemBtn({ children, clickOn, bgColor }) {
   return (
     <button
-      onClick={(e) => clickOn(e)}
+      onClick={() => clickOn()}
       style={{
         backgroundColor: `${bgColor}`,
       }}

@@ -19,7 +19,7 @@ function About() {
               alt=""
             />
           </div>
-          <div className="flex flex-col md:order-1 space-y-5 mt-3 mx-auto">
+          <div className="flex flex-col md:order-1 space-y-5 mt-3 mx-auto mb-12">
             <h1 className="text-3xl font-semibold">
               Hello I'm <span className="text-darkViolet ">Mirwais Sanaie</span>
             </h1>
