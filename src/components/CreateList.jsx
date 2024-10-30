@@ -43,6 +43,13 @@ export default function CreateList() {
     setItems(updatedItems);
   }
 
+  // function updateList(editedItem) {
+  //   const updatedItems = items.map((item) =>
+  //     item.id === editedItem.id ? editedItem : item
+  //   );
+  //   setItems(updatedItems);
+  // }
+
   return (
     <div>
       <Navigation />
@@ -90,33 +97,37 @@ export default function CreateList() {
   );
 }
 
-function GiveItem({ onDelete, item }) {
+function GiveItem({ onDelete, item, updateList }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
   const [price, setPrice] = useState("");
 
-  // const id = crypto.randomUUID();
   function handleSubmit(e) {
     e.preventDefault();
-    // if (!name || !quantity) return;
-    // const newItem = {
-    //   id,
-    //   name,
-    //   quantity,
-    //   unit,
-    //   price,
-    //   checked: false,
-    // };
-    // addItem(newItem);
-    // setName("");
-    // setQuantity(0);
-    // setPrice(0);
   }
 
   function handleDeleteItem() {
     onDelete(item.id);
   }
+
+  // function handleEditItem() {
+  //   const editedItem = {
+  //     id: item.id,
+  //     name,
+  //     quantity,
+  //     unit,
+  //     price,
+  //     checked: false,
+  //   };
+  //   // Call the function to update the list with the edited item
+  //   // (You need to define this function in the parent component)
+  //   updateList(editedItem);
+  //   setIsOpened(false);
+  // }
+  // function handleEdit() {
+  //   setIsOpened(true);
+  // }
 
   return (
     <li>
@@ -162,16 +173,15 @@ function GiveItem({ onDelete, item }) {
     </li>
   );
 }
-
-// function List({ items }) {
-//   return (
-//     <ul className="space-y-3">
-//       {items.map((el) => (
-//         <ListItem item={el} key={el.id} />
-//       ))}
-//     </ul>
-//   );
-// }
+/*function List({ items }) {
+  return (
+    <ul className="space-y-3">
+      {items.map((el) => (
+        <ListItem item={el} key={el.id} />
+      ))}
+    </ul>
+  );
+} */
 
 // function ListItem({ item }) {
 //   return (
