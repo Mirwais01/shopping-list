@@ -97,9 +97,9 @@ function GiveItem({ addItem, onDelete }) {
       checked: false,
     };
     addItem(newItem);
-    setName("");
-    setQuantity(0);
-    setPrice(0);
+    // setName("");
+    // setQuantity(0);
+    // setPrice(0);
   }
 
   return (
