@@ -10,10 +10,10 @@ function About() {
           About Us
         </h1>
         <div className="flex flex-col md:flex-row justify-between px-6 md:px-12 mt-12">
-          <div className="md:order-2">
+          <div className="md:order-2 mb-7 md:mb-0">
             <img
               style={{ borderRadius: "53% 47% 50% 50% / 55% 44% 56% 45% " }}
-              className="w-1/3 h-[95%] mx-auto
+              className="w-2/3 md:w-1/3 h-[97%] mx-auto
           "
               src="Mirwais.JPG"
               alt=""
