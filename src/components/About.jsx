@@ -6,7 +6,7 @@ function About() {
     <div>
       <Navigation />
       <div className="container mx-auto">
-        <h1 className="text-4xl text-center text-darkViolet my-3 font-semibold">
+        <h1 className="text-4xl text-center text-darkViolet my-3 font-black">
           About Us
         </h1>
         <div className="flex flex-col md:flex-row justify-between px-6 md:px-12 mt-12">
