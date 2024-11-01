@@ -14,8 +14,7 @@ const myList = [
 
 export default function CreateList() {
   const [items, setItems] = useState(myList);
-  // const [isShowForm, setIsShowForm] = useState(false);
-  const [isOpened, setIsOpened] = useState(true);
+  const [openedItemId, setOpenedItemId] = useState(null);
 
   function addItem(newItem) {
     console.log(newItem);
@@ -50,7 +49,6 @@ export default function CreateList() {
       item.id === newItem.id ? newItem : item
     );
     setItems(updatedItems);
-    console.log(newItem, items);
   }
 
   return (
@@ -71,15 +69,14 @@ export default function CreateList() {
               {/* input of add item */}
               <ul className="space-y-4">
                 {items.map((item) =>
-                  isOpened ? (
+                  item.id !== openedItemId ? (
                     <GiveItem
                       item={item}
                       key={item.id}
                       addItem={addItem}
                       onDelete={handleDeleteItem}
                       updateList={handleUpdateItem}
-                      isOpened={isOpened}
-                      setIsOpened={setIsOpened}
+                      setOpenedItemId={setOpenedItemId}
                     />
                   ) : (
                     <ListItem item={item} handleDeleteItem={handleDeleteItem} />
@@ -107,7 +104,7 @@ export default function CreateList() {
   );
 }
 
-function GiveItem({ onDelete, item, updateList, isOpened, setIsOpened }) {
+function GiveItem({ onDelete, item, updateList, setOpenedItemId }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
@@ -133,10 +130,7 @@ function GiveItem({ onDelete, item, updateList, isOpened, setIsOpened }) {
     // Call the function to update the list with the edited item
     // (You need to define this function in the parent component)
     updateList(editedItem);
-    setIsOpened(false);
-  }
-  function handleEdit() {
-    setIsOpened(true);
+    setOpenedItemId(item.id);
   }
 
   return (
@@ -177,16 +171,10 @@ function GiveItem({ onDelete, item, updateList, isOpened, setIsOpened }) {
           <EditItemBtn clickOn={handleDeleteItem} bgColor={"#CC2B52"}>
             &#215;
           </EditItemBtn>
-          {!isOpened && (
-            <EditItemBtn clickOn={handleEdit} bgColor={"#8644A2"}>
-              &#9998;
-            </EditItemBtn>
-          )}
-          {isOpened && (
-            <EditItemBtn clickOn={handleEditItem} bgColor={"#8644A2"}>
-              &#10003;
-            </EditItemBtn>
-          )}
+
+          <EditItemBtn clickOn={handleEditItem} bgColor={"#8644A2"}>
+            &#10003;
+          </EditItemBtn>
         </span>
       </form>
     </li>
