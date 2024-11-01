@@ -14,6 +14,8 @@ const myList = [
 
 export default function CreateList() {
   const [items, setItems] = useState(myList);
+  // const [isShowForm, setIsShowForm] = useState(false);
+  const [isOpened, setIsOpened] = useState(true);
 
   function addItem(newItem) {
     console.log(newItem);
@@ -43,12 +45,13 @@ export default function CreateList() {
     setItems(updatedItems);
   }
 
-  // function updateList(editedItem) {
-  //   const updatedItems = items.map((item) =>
-  //     item.id === editedItem.id ? editedItem : item
-  //   );
-  //   setItems(updatedItems);
-  // }
+  function handleUpdateItem(newItem) {
+    const updatedItems = items.map((item) =>
+      item.id === newItem.id ? newItem : item
+    );
+    setItems(updatedItems);
+    console.log(newItem, items);
+  }
 
   return (
     <div>
@@ -67,14 +70,21 @@ export default function CreateList() {
             <div>
               {/* input of add item */}
               <ul className="space-y-4">
-                {items.map((item) => (
-                  <GiveItem
-                    item={item}
-                    key={item.id}
-                    addItem={addItem}
-                    onDelete={handleDeleteItem}
-                  />
-                ))}
+                {items.map((item) =>
+                  isOpened ? (
+                    <GiveItem
+                      item={item}
+                      key={item.id}
+                      addItem={addItem}
+                      onDelete={handleDeleteItem}
+                      updateList={handleUpdateItem}
+                      isOpened={isOpened}
+                      setIsOpened={setIsOpened}
+                    />
+                  ) : (
+                    <ListItem item={item} handleDeleteItem={handleDeleteItem} />
+                  )
+                )}
               </ul>
             </div>
 
@@ -97,7 +107,7 @@ export default function CreateList() {
   );
 }
 
-function GiveItem({ onDelete, item, updateList }) {
+function GiveItem({ onDelete, item, updateList, isOpened, setIsOpened }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
@@ -111,23 +121,23 @@ function GiveItem({ onDelete, item, updateList }) {
     onDelete(item.id);
   }
 
-  // function handleEditItem() {
-  //   const editedItem = {
-  //     id: item.id,
-  //     name,
-  //     quantity,
-  //     unit,
-  //     price,
-  //     checked: false,
-  //   };
-  //   // Call the function to update the list with the edited item
-  //   // (You need to define this function in the parent component)
-  //   updateList(editedItem);
-  //   setIsOpened(false);
-  // }
-  // function handleEdit() {
-  //   setIsOpened(true);
-  // }
+  function handleEditItem() {
+    const editedItem = {
+      id: item.id,
+      name,
+      quantity,
+      unit,
+      price,
+      checked: false,
+    };
+    // Call the function to update the list with the edited item
+    // (You need to define this function in the parent component)
+    updateList(editedItem);
+    setIsOpened(false);
+  }
+  function handleEdit() {
+    setIsOpened(true);
+  }
 
   return (
     <li>
@@ -167,35 +177,37 @@ function GiveItem({ onDelete, item, updateList }) {
           <EditItemBtn clickOn={handleDeleteItem} bgColor={"#CC2B52"}>
             &#215;
           </EditItemBtn>
-          <EditItemBtn bgColor={"#8644A2"}>&#10003;</EditItemBtn>
+          {!isOpened && (
+            <EditItemBtn clickOn={handleEdit} bgColor={"#8644A2"}>
+              &#9998;
+            </EditItemBtn>
+          )}
+          {isOpened && (
+            <EditItemBtn clickOn={handleEditItem} bgColor={"#8644A2"}>
+              &#10003;
+            </EditItemBtn>
+          )}
         </span>
       </form>
     </li>
   );
 }
-/*function List({ items }) {
-  return (
-    <ul className="space-y-3">
-      {items.map((el) => (
-        <ListItem item={el} key={el.id} />
-      ))}
-    </ul>
-  );
-} */
 
-// function ListItem({ item }) {
-//   return (
-//     <li className="flex justify-between px-4 mx-3 bg-gray-100 py-3">
-//       <p>
-//         {item.name}({item.quantity} {item.unit} , price : {item.price})
-//       </p>
-//       <div className="space-x-4">
-//         <EditListItemBtn color={"green"}>&#9998; Edit</EditListItemBtn>
-//         <EditListItemBtn color={"#CC2B52"}>&#10006; Delete</EditListItemBtn>
-//       </div>
-//     </li>
-//   );
-// }
+function ListItem({ item, handleDeleteItem }) {
+  return (
+    <li className="flex justify-between px-4 mx-3 bg-gray-100 py-3">
+      <p>
+        {item.name}({item.quantity} {item.unit} , price : {item.price})
+      </p>
+      <div className="space-x-4">
+        <EditListItemBtn color={"green"}>&#9998; Edit</EditListItemBtn>
+        <EditListItemBtn clickOn={handleDeleteItem} color={"#CC2B52"}>
+          &#10006; Delete
+        </EditListItemBtn>
+      </div>
+    </li>
+  );
+}
 
 function TitleCom() {
   const [title, setTitle] = useState("");
@@ -209,9 +221,12 @@ function TitleCom() {
 
   return (
     <form>
-      <div className="flex justify-between mx-3 mt-9 items-center space-x-4">
+      <div className="flex justify-between me-3 mt-9 items-center space-x-4">
         {showTitle && (
-          <h1 title="Title" className="md:text-2xl font-semibold capitalize ">
+          <h1
+            title="Title"
+            className="md:text-2xl ms-3 font-semibold capitalize "
+          >
             {title}
           </h1>
         )}
@@ -274,14 +289,14 @@ function EditItemBtn({ children, clickOn, bgColor }) {
   );
 }
 
-// function EditListItemBtn({ children, clickOn, color }) {
-//   return (
-//     <button
-//       onClick={(e) => clickOn(e)}
-//       style={{ color: `${color}` }}
-//       className="mx-1 px-2 text-sm border border-gray-300"
-//     >
-//       {children}
-//     </button>
-//   );
-// }
+function EditListItemBtn({ children, clickOn, color }) {
+  return (
+    <button
+      onClick={(e) => clickOn(e)}
+      style={{ color: `${color}` }}
+      className="mx-1 px-2 text-sm border border-gray-300"
+    >
+      {children}
+    </button>
+  );
+}
