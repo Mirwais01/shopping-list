@@ -1,11 +1,12 @@
 import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 function Contact() {
   return (
     <div>
       <Navigation />
       <div className="container mx-auto my-3 text-center">
-        <h1 className="text-4xl font-black mb-12 text-darkViolet text-center">
+        <h1 className="text-4xl font-black mb-8 text-darkViolet text-center">
           Contact us
         </h1>
         <div></div>
@@ -37,6 +38,9 @@ function Contact() {
             Sent
           </button>
         </form>
+      </div>
+      <div className="mt-20">
+        <Footer />
       </div>
     </div>
   );

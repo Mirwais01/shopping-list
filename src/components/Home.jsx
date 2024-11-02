@@ -1,3 +1,4 @@
+import Footer from "./Footer";
 import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
 
@@ -11,14 +12,16 @@ function Home() {
             <img src="SEO-Checklist.png" alt="" />
           </div>
 
-          <div className="md:order-1 md:flex-1 space-y-6 text-center md:text-left md:mb-32">
+          <div className="md:order-1 relative md:flex-1 space-y-6 text-center md:text-left md:mb-32">
             <h1 className="md:text-6xl text-3xl font-black md:max-w-lg">
               Welcome to Shopping List app
             </h1>
             <p className="opacity-75">
               You can save your notes and items savely and clearly.
             </p>
-
+            <div className="w-10 h-10 absolute left-40 bottom-8 -rotate-12 ">
+              <img src="./arrow-icon.svg" alt="" />
+            </div>
             <Link
               className="bg-lightAntique inline-block border border-[#f9d360] rounded-full px-12 py-3 hover:bg-[#fcdd83]"
               to={"/CreateList"}
@@ -28,6 +31,7 @@ function Home() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

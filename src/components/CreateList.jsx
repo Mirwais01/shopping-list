@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 const myList = [
   {
@@ -52,7 +53,7 @@ export default function CreateList() {
   }
 
   return (
-    <div>
+    <div className="relative h-auto">
       <Navigation />
       {/* create list section  */}
       <div className="md:w-1/2 md:mx-auto mx-2 py-7 text-center">
@@ -99,6 +100,9 @@ export default function CreateList() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="mt-48">
+        <Footer />
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import Navigation from "./Navigation";
+import Footer from "./Footer";
 
 function About() {
   return (
     <div>
       <Navigation />
       <div className="container mx-auto">
-        <h1 className="text-4xl text-center text-darkViolet my-3 font-black">
+        <h1 className="text-4xl text-center text-darkViolet my-1 font-black">
           About Us
         </h1>
         <div className="flex flex-col md:flex-row justify-between px-6 md:px-12 mt-12">
@@ -48,6 +49,9 @@ function About() {
             </div>
           </div>
         </div>
+      </div>
+      <div className="mt-24">
+        <Footer />
       </div>
     </div>
   );
