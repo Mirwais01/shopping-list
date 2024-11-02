@@ -12,7 +12,7 @@ function Contact() {
         <div></div>
         <form
           action=""
-          className="flex flex-col max-w-sm mx-4 md:mx-auto space-y-3 mt-4"
+          className="flex flex-col max-w-sm mx-4 md:mx-auto mb-24 space-y-3 mt-4"
         >
           <h3 className="text-gray-500 mb-3">
             To send your suggestions fill the form below :

@@ -6,7 +6,7 @@ function About() {
   return (
     <div>
       <Navigation />
-      <div className="container mx-auto">
+      <div className="container mx-auto mb-36">
         <h1 className="text-4xl text-center text-darkViolet my-1 font-black">
           About Us
         </h1>
