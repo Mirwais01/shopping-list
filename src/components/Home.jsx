@@ -12,14 +12,14 @@ function Home() {
             <img src="SEO-Checklist.png" alt="" />
           </div>
 
-          <div className="md:order-1 relative md:flex-1 space-y-6 text-center md:text-left md:mb-32">
+          <div className="md:order-1 relative md:flex-1 space-y-8 text-center md:text-left md:mb-32">
             <h1 className="md:text-6xl text-3xl font-black md:max-w-lg">
               Welcome to Shopping List app
             </h1>
             <p className="opacity-75">
               You can save your notes and items savely and clearly.
             </p>
-            <div className="w-10 h-10 absolute left-40 bottom-8 -rotate-12 ">
+            <div className="w-10 h-10 absolute left-40 md:bottom-8 bottom-10 -rotate-12 ">
               <img src="./arrow-icon.svg" alt="" />
             </div>
             <Link

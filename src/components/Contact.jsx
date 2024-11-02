@@ -5,14 +5,14 @@ function Contact() {
   return (
     <div>
       <Navigation />
-      <div className="container mx-auto my-3 text-center">
-        <h1 className="text-4xl font-black mb-8 text-darkViolet text-center">
+      <div className="container mx-auto my-3  text-center">
+        <h1 className="text-4xl font-black mb-14  mt-6 text-darkViolet text-center">
           Contact us
         </h1>
         <div></div>
         <form
           action=""
-          className="flex flex-col max-w-sm mx-auto space-y-3 mt-4"
+          className="flex flex-col max-w-sm mx-4 md:mx-auto space-y-3 mt-4"
         >
           <h3 className="text-gray-500 mb-3">
             To send your suggestions fill the form below :
