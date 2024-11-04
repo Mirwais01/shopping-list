@@ -15,42 +15,41 @@ const myList = [
 
 export default function CreateList() {
   const [items, setItems] = useState(myList);
-  const [openedItemId, setOpenedItemId] = useState(null);
+  // const [openedItemId, setOpenedItemId] = useState(null);
 
-  function addItem(newItem) {
-    console.log(newItem);
-    setItems([...items, newItem]);
-  }
+  // function addItem(newItem) {
+  //   setItems([...items, newItem]);
+  // }
 
-  function clearList() {
-    window.confirm("Are you sure to clear the list?") && setItems([]);
-  }
+  // function clearList() {
+  //   window.confirm("Are you sure to clear the list?") && setItems([]);
+  // }
 
   //////////////////////////////
-  function handleItemsCount() {
-    const newId = crypto.randomUUID();
-    const newItem = {
-      id: newId,
-      name: "",
-      quantity: 0,
-      unit: "",
-      price: 0,
-      checked: false,
-    };
-    addItem(newItem);
-  }
+  // function handleItemsCount() {
+  //   const newId = crypto.randomUUID();
+  //   const newItem = {
+  //     id: newId,
+  //     name: "",
+  //     quantity: 0,
+  //     unit: "",
+  //     price: 0,
+  //     checked: false,
+  //   };
+  //   addItem(newItem);
+  // }
 
-  function handleDeleteItem(itemId) {
-    const updatedItems = items.filter((item) => item.id !== itemId);
-    setItems(updatedItems);
-  }
+  // function handleDeleteItem(itemId) {
+  //   const updatedItems = items.filter((item) => item.id !== itemId);
+  //   setItems(updatedItems);
+  // }
 
-  function handleUpdateItem(newItem) {
-    const updatedItems = items.map((item) =>
-      item.id === newItem.id ? newItem : item
-    );
-    setItems(updatedItems);
-  }
+  // function handleUpdateItem(newItem) {
+  //   const updatedItems = items.map((item) =>
+  //     item.id === newItem.id ? newItem : item
+  //   );
+  //   setItems(updatedItems);
+  // }
 
   return (
     <div className="relative h-auto">
@@ -69,19 +68,22 @@ export default function CreateList() {
             <div>
               {/* input of add item */}
               <ul className="space-y-4">
-                {items.map((item) =>
-                  item.id !== openedItemId ? (
+                {items.map(
+                  (item) => (
+                    // item.id !== openedItemId ? (
                     <GiveItem
                       item={item}
                       key={item.id}
-                      addItem={addItem}
-                      onDelete={handleDeleteItem}
-                      updateList={handleUpdateItem}
-                      setOpenedItemId={setOpenedItemId}
+                      // addItem={addItem}
+                      // onDelete={handleDeleteItem}
+                      // updateList={handleUpdateItem}
+                      // setOpenedItemId={setOpenedItemId}
+                      // openedItemId={openedItemId}
                     />
-                  ) : (
-                    <ListItem item={item} handleDeleteItem={handleDeleteItem} />
                   )
+                  //   ) : (
+                  //     <ListItem item={item} handleDeleteItem={handleDeleteItem} />
+                  //   )
                 )}
               </ul>
             </div>
@@ -90,13 +92,9 @@ export default function CreateList() {
             <div className="flex justify-between mx-3">
               <div className="space-x-2">
                 <Button bgColor={"#8644A2"}>Add to List</Button>
-                <Button clickOn={clearList} bgColor={"#CC2B52"}>
-                  Clear List
-                </Button>
+                <Button bgColor={"#CC2B52"}>Clear List</Button>
               </div>
-              <PlusBtn clickOn={handleItemsCount} bgColor={"#8644A2"}>
-                &#43;
-              </PlusBtn>
+              <PlusBtn bgColor={"#8644A2"}>&#43;</PlusBtn>
             </div>
           </div>
         </div>
@@ -108,7 +106,13 @@ export default function CreateList() {
   );
 }
 
-function GiveItem({ onDelete, item, updateList, setOpenedItemId }) {
+function GiveItem({
+  onDelete,
+  item,
+  updateList,
+  setOpenedItemId,
+  openedItemId,
+}) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState("");
   const [unit, setUnit] = useState("");
@@ -118,69 +122,69 @@ function GiveItem({ onDelete, item, updateList, setOpenedItemId }) {
     e.preventDefault();
   }
 
-  function handleDeleteItem() {
-    onDelete(item.id);
-  }
+  // function handleDeleteItem() {
+  //   onDelete(item.id);
+  // }
 
-  function handleEditItem() {
-    const editedItem = {
-      id: item.id,
-      name,
-      quantity,
-      unit,
-      price,
-      checked: false,
-    };
-    // Call the function to update the list with the edited item
-    // (You need to define this function in the parent component)
-    updateList(editedItem);
-    setOpenedItemId(item.id);
-  }
+  // function handleEditItem() {
+  //   const editedItem = {
+  //     id: item.id,
+  //     name,
+  //     quantity,
+  //     unit,
+  //     price,
+  //     checked: false,
+  //   };
+  // Call the function to update the list with the edited item
+  // (You need to define this function in the parent component)
+  //   updateList(editedItem);
+  //   setOpenedItemId(null);
+  // }
 
   return (
     <li>
+      {/* {item.id === openedItemId ? ( */}
       <form
         onSubmit={(e) => handleSubmit(e)}
-        className="grid grid-cols-6 items-center mx-3 space-x-2 divide-x-2 divide-dashed divide-gray-400 border border-gray-300"
+        className="grid grid-cols-6 items-center mx-2 md:mx-3 space-x-2 md:divide-x-2 md:divide-dashed md:divide-gray-400 border border-gray-300"
       >
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
           type="text"
-          className="text-sm col-span-2 sm:text-base px-2 py-2 input-createlist"
+          className="text-sm col-span-6 border-b border-b-gray-200 md:border-b-0 md:col-span-2 sm:text-base md:px-2 px-1 py-2 input-createlist"
           placeholder="Item-name"
         />
         <input
           value={quantity}
           onChange={(e) => setQuantity(Number(e.target.value))}
           type="number"
-          className="py-2 input-createlist px-2"
+          className="py-2 col-span-2 md:col-span-1 border-r border-gray-200 input-createlist md:px-2"
           placeholder="Count"
         />
         <input
           value={unit}
           onChange={(e) => setUnit(e.target.value)}
           type="text"
-          className="py-2 input-createlist px-2"
+          className="py-2 col-span-1 border-r border-r-gray-200 input-createlist md:px-2"
           placeholder="Unit"
         />
         <input
           value={price}
           onChange={(e) => setPrice(Number(e.target.value))}
           type="number"
-          className="py-2 input-createlist px-2"
+          className="py-2 col-span-1 border-r border-r-gray-200 input-createlist md:px-2"
           placeholder="price"
         />
-        <span>
-          <EditItemBtn clickOn={handleDeleteItem} bgColor={"#CC2B52"}>
-            &#215;
-          </EditItemBtn>
+        <span className="col-span-2 md:col-span-1">
+          <EditItemBtn bgColor={"#CC2B52"}>&#215;</EditItemBtn>
 
-          <EditItemBtn clickOn={handleEditItem} bgColor={"#8644A2"}>
-            &#10003;
-          </EditItemBtn>
+          <EditItemBtn bgColor={"#8644A2"}>&#10003;</EditItemBtn>
         </span>
       </form>
+      {/* ) : (
+        <ListItem item={item} handleDeleteItem={handleDeleteItem} />
+      )} */}
     </li>
   );
 }
@@ -213,11 +217,15 @@ function TitleCom() {
 
   return (
     <form>
-      <div className="flex justify-between me-3 mt-9 items-center space-x-4">
+      <div
+        className={`flex justify-between ${
+          title.length > 20 && "flex-col md:flex-row space-y-3 md:space-y-0"
+        } me-3 mt-9 items-center space-x-4`}
+      >
         {showTitle && (
           <h1
             title="Title"
-            className="md:text-2xl ms-3 font-semibold capitalize "
+            className="text-2xl md:text-3xl ms-3 font-semibold capitalize "
           >
             {title}
           </h1>
