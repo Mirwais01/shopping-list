@@ -181,6 +181,8 @@ export default function CreateList() {
         </h1>
         <div className="w-52 mt-4 h-0.5 mx-auto bg-darkViolet"></div>
 
+        <TitleCom />
+
         <div>
           <ul className="space-y-4">
             {items.map((item) => (
@@ -192,7 +194,7 @@ export default function CreateList() {
               />
             ))}
           </ul>
-          <div className="flex justify-between mx-3">
+          <div className="flex justify-between mx-3 my-6">
             <div className="space-x-2">
               <Button bgColor={"#8644A2"}>Add to List</Button>
               <Button bgColor={"#CC2B52"} clickOn={clearList}>
@@ -213,7 +215,7 @@ export default function CreateList() {
 }
 
 function GiveItem({ item, onDelete, updateList }) {
-  const [isEditing, setIsEditing] = useState(false);
+  const [isEditing, setIsEditing] = useState(true);
   const [name, setName] = useState(item.name);
   const [quantity, setQuantity] = useState(item.quantity);
   const [unit, setUnit] = useState(item.unit);
@@ -237,7 +239,11 @@ function GiveItem({ item, onDelete, updateList }) {
   };
 
   return (
-    <li className="grid grid-cols-6 items-center mx-2 md:mx-3 space-x-2 md:divide-x-2 md:divide-dashed md:divide-gray-400 border border-gray-300">
+    <li
+      className={`${
+        !isEditing && "grid grid-cols-1 px-0"
+      } grid grid-cols-6 my-5 mt-9 items-center mx-2 md:mx-3 space-x-2 md:divide-x-2 md:divide-dashed md:divide-gray-400 border border-gray-300`}
+    >
       {isEditing ? (
         // When in edit mode, show input fields
         <>
@@ -387,7 +393,7 @@ function GiveItem({ item, onDelete, updateList }) {
 
 function ListItem({ item, onDelete, onEdit }) {
   return (
-    <li className="flex justify-between px-4 mx-3 bg-gray-100 py-3">
+    <li className="flex justify-between px-3 bg-gray-100 py-3">
       <p>
         {item.name} ({item.quantity} {item.unit}, price: {item.price})
       </p>
