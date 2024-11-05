@@ -134,7 +134,7 @@ function GiveItem({ item, onDelete, updateList }) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             type="text"
-            className="text-sm outline-0 col-span-6 border-b border-b-gray-200 md:border-b-0 md:col-span-2 sm:text-base md:px-2 px-1 py-2"
+            className="text-md outline-0 col-span-6 border-b border-b-gray-200 md:border-b-0 md:col-span-2 sm:text-base md:px-2 px-1 py-2"
             placeholder="Item-name"
           />
           <input
@@ -181,7 +181,7 @@ function ListItem({ item, onDelete, onEdit }) {
       <p>
         {item.name} ({item.quantity} {item.unit}, price: {item.price})
       </p>
-      <div className="space-x-4">
+      <div className="space-x-1">
         <EditListItemBtn color={"green"} clickOn={onEdit}>
           &#9998; Edit
         </EditListItemBtn>
