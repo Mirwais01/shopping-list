@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
-// Function to load items from localStorage or return a default list
+// Function to load items from localStorage or return a list
 const loadItemsFromLocalStorage = () => {
   const storedItems = localStorage.getItem("shoppingList");
   return storedItems ? JSON.parse(storedItems) : []; // Parse and return if exists, else return empty array
@@ -124,8 +124,8 @@ function GiveItem({ item, onDelete, updateList }) {
   return (
     <li
       className={`${
-        !isEditing && "grid grid-cols-1 px-0"
-      } grid grid-cols-6 my-5 mt-9 items-center mx-2 md:mx-3 space-x-2 md:divide-x-2 md:divide-dashed md:divide-gray-400 border border-gray-300`}
+        !isEditing ? "grid grid-cols-1 px-0" : "grid grid-cols-6"
+      } my-5 mt-9 items-center mx-2 md:mx-3 space-x-2 md:divide-x-2 md:divide-dashed md:divide-gray-400 border border-gray-300`}
     >
       {isEditing ? (
         // When in edit mode, show input fields
@@ -138,7 +138,7 @@ function GiveItem({ item, onDelete, updateList }) {
             placeholder="Item-name"
           />
           <input
-            value={quantity}
+            value={quantity || ""}
             onChange={(e) => setQuantity(Number(e.target.value))}
             type="number"
             className="py-2 outline-0 col-span-1 md:col-span-1 border-r border-gray-200 md:px-2"
@@ -152,7 +152,7 @@ function GiveItem({ item, onDelete, updateList }) {
             placeholder="Unit"
           />
           <input
-            value={price}
+            value={price || ""}
             onChange={(e) => setPrice(Number(e.target.value))}
             type="number"
             className="py-2 outline-0 col-span-2 md:col-span-1 border-r border-r-gray-200 md:px-2"
@@ -196,6 +196,18 @@ function ListItem({ item, onDelete, onEdit }) {
 function TitleCom() {
   const [title, setTitle] = useState("");
   const [showTitle, setShowTitle] = useState(false);
+
+  useEffect(() => {
+    const storedTitle = localStorage.getItem("shoppingListTitle");
+    if (storedTitle) {
+      setTitle(storedTitle);
+    }
+  }, []);
+
+  // Save title to localStorage when it changes
+  useEffect(() => {
+    localStorage.setItem("shoppingListTitle", title);
+  }, [title]);
 
   function handleTitle(e) {
     e.preventDefault();

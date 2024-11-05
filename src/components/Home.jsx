@@ -6,6 +6,19 @@ function Home() {
   return (
     <div>
       <Navigation />
+      {/* first section  */}
+      <FirstSection />
+      <SecondSection />
+      <Footer />
+    </div>
+  );
+}
+
+export default Home;
+
+function FirstSection() {
+  return (
+    <section>
       <div className="container mx-auto py-12 md:px-12 px-7">
         <div className="flex flex-col md:flex-row md:items-center justify-around">
           <div className="md:w-1/2 md:order-2">
@@ -31,9 +44,28 @@ function Home() {
           </div>
         </div>
       </div>
-      <Footer />
-    </div>
+    </section>
   );
 }
 
-export default Home;
+function SecondSection() {
+  return (
+    <section>
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-5 md:my-0 pb-16 my-12">
+        <div className="md:col-span-2">
+          <img src="./section2.png" alt="" />
+        </div>
+        <div className="md:col-span-2 md:px-0 px-5 md:ms-7 flex flex-col justify-center mb-12 space-y-6">
+          <h2 className="text-4xl font-bold text-center md:text-left mt-12 md:mt-0">
+            Information
+          </h2>
+          <p className="opacity-75">
+            This website allows you to easily create your shopping list either
+            you can share your list with anyone you like,in single click. All
+            the features are free
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}

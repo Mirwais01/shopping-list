@@ -6,7 +6,7 @@ export default function Footer() {
 
   return (
     <div className="bg-darkViolet text-white">
-      <p className="text-center py-6 text-lightAntique">
+      <p className="text-center py-6 md:py-12 text-lightAntique">
         All rights reserved &#169; {year}/{month}/{day}
       </p>
     </div>

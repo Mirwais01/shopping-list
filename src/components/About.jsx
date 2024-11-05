@@ -25,8 +25,9 @@ function About() {
               Hello I'm <span className="text-darkViolet ">Mirwais Sanaie</span>
             </h1>
             <p className="text-gray-500 max-w-md">
-              I'm stduying software engeeniring at Herat university and also
-              this project is completly by my self
+              I'm a software engeeniring student at Herat university and I want
+              to be a front-end developer, this project is compeletly by my
+              self.
             </p>
             <div className="text-gray-500 space-y-3">
               <p>You can check my socials :</p>
@@ -34,7 +35,11 @@ function About() {
                 <p>
                   <span>LinkidIn : </span>
                   <span className="text-darkViolet font-bold">
-                    Mirwais Sanaie
+                    <Link
+                      to={"https://linkedin.com/in/mirwais-sanaie-2a5760292"}
+                    >
+                      Mirwais Sanaie
+                    </Link>
                   </span>
                 </p>
                 <p>
