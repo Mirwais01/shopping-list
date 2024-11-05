@@ -1,142 +1,20 @@
-// import { useState } from "react";
-// import Navigation from "./Navigation";
-// import Footer from "./Footer";
-
-// const myList = [
-//   {
-//     id: 1,
-//     name: "",
-//     quantity: 0,
-//     unit: "",
-//     price: 0,
-//     checked: false,
-//   },
-// ];
-
-// export default function CreateList() {
-//   const [items, setItems] = useState(myList);
-//   // const [openedItemId, setOpenedItemId] = useState(null);
-
-//   const addNewItem = () => {
-//     const newItem = {
-//       id: crypto.randomUUID(), // Generate a unique ID
-//       name: "",
-//       quantity: 0,
-//       unit: "",
-//       price: 0,
-//       checked: false,
-//     };
-//     setItems([...items, newItem]);
-//   };
-
-//   // function addItem(newItem) {
-//   //   setItems([...items, newItem]);
-//   // }
-
-//   // function clearList() {
-//   //   window.confirm("Are you sure to clear the list?") && setItems([]);
-//   // }
-
-//   //////////////////////////////
-//   // function handleItemsCount() {
-//   //   const newId = crypto.randomUUID();
-//   //   const newItem = {
-//   //     id: newId,
-//   //     name: "",
-//   //     quantity: 0,
-//   //     unit: "",
-//   //     price: 0,
-//   //     checked: false,
-//   //   };
-//   //   addItem(newItem);
-//   // }
-
-//   // function handleDeleteItem(itemId) {
-//   //   const updatedItems = items.filter((item) => item.id !== itemId);
-//   //   setItems(updatedItems);
-//   // }
-
-//   // function handleUpdateItem(newItem) {
-//   //   const updatedItems = items.map((item) =>
-//   //     item.id === newItem.id ? newItem : item
-//   //   );
-//   //   setItems(updatedItems);
-//   // }
-
-//   return (
-//     <div className="relative h-auto">
-//       <Navigation />
-//       {/* create list section  */}
-//       <div className="md:w-1/2 md:mx-auto mx-2 py-7 text-center">
-//         <h1 className="font-black text-2xl sm:text-3xl">
-//           <span className="font-normal">Create</span> Shopping list
-//         </h1>
-//         <div className="w-52 mt-4 h-0.5 mx-auto bg-darkViolet"></div>
-
-//         <TitleCom />
-
-//         <div>
-//           <div className="mt-7 space-y-4">
-//             <div>
-//               {/* input of add item */}
-//               <ul className="space-y-4">
-//                 {items.map(
-//                   (item) => (
-//                     // item.id !== openedItemId ? (
-//                     <GiveItem
-//                       item={item}
-//                       key={item.id}
-//                       // addItem={addItem}
-//                       // onDelete={handleDeleteItem}
-//                       // updateList={handleUpdateItem}
-//                       // setOpenedItemId={setOpenedItemId}
-//                       // openedItemId={openedItemId}
-//                     />
-//                   )
-//                   //   ) : (
-//                   //     <ListItem item={item} handleDeleteItem={handleDeleteItem} />
-//                   //   )
-//                 )}
-//               </ul>
-//             </div>
-
-//             {/* bottom buttons */}
-//             <div className="flex justify-between mx-3">
-//               <div className="space-x-2">
-//                 <Button bgColor={"#8644A2"}>Add to List</Button>
-//                 <Button bgColor={"#CC2B52"}>Clear List</Button>
-//               </div>
-//               <PlusBtn clickOn={addNewItem} bgColor={"#8644A2"}>
-//                 &#43;
-//               </PlusBtn>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//       <div className="mt-48">
-//         <Footer />
-//       </div>
-//     </div>
-//   );
-// }
-
 import { useState } from "react";
 import Navigation from "./Navigation";
 import Footer from "./Footer";
 
-const myList = [
-  {
-    id: 1,
-    name: "Item 1",
-    quantity: 2,
-    unit: "kg",
-    price: 10,
-    checked: false,
-  },
-];
+// Function to load items from localStorage or return a default list
+const loadItemsFromLocalStorage = () => {
+  const storedItems = localStorage.getItem("shoppingList");
+  return storedItems ? JSON.parse(storedItems) : []; // Parse and return if exists, else return empty array
+};
+
+// Function to save items to localStorage
+const saveItemsToLocalStorage = (items) => {
+  localStorage.setItem("shoppingList", JSON.stringify(items)); // Convert items to JSON string and save
+};
 
 export default function CreateList() {
-  const [items, setItems] = useState(myList);
+  const [items, setItems] = useState(loadItemsFromLocalStorage);
 
   // Add new item
   const addNewItem = () => {
@@ -148,13 +26,16 @@ export default function CreateList() {
       price: 0,
       checked: false,
     };
-    setItems([...items, newItem]);
+    const updatedItems = [...items, newItem];
+    setItems(updatedItems);
+    saveItemsToLocalStorage(updatedItems); // Save to localStorage
   };
 
   // Delete item
   const handleDeleteItem = (itemId) => {
     const updatedItems = items.filter((item) => item.id !== itemId);
     setItems(updatedItems);
+    saveItemsToLocalStorage(updatedItems); // Save to localStorage
   };
 
   // Update item
@@ -163,12 +44,14 @@ export default function CreateList() {
       item.id === updatedItem.id ? updatedItem : item
     );
     setItems(updatedItems);
+    saveItemsToLocalStorage(updatedItems); // Save to localStorage
   };
 
   // Clear the list
   const clearList = () => {
     if (window.confirm("Are you sure you want to clear the list?")) {
       setItems([]);
+      saveItemsToLocalStorage([]); // Clear localStorage
     }
   };
 
@@ -196,7 +79,7 @@ export default function CreateList() {
           </ul>
           <div className="flex justify-between mx-3 my-6">
             <div className="space-x-2">
-              <Button bgColor={"#8644A2"}>Add to List</Button>
+              <Button bgColor={"#8644A2"}>Save List</Button>
               <Button bgColor={"#CC2B52"} clickOn={clearList}>
                 Clear List
               </Button>
@@ -251,28 +134,28 @@ function GiveItem({ item, onDelete, updateList }) {
             value={name}
             onChange={(e) => setName(e.target.value)}
             type="text"
-            className="text-sm col-span-6 border-b border-b-gray-200 md:border-b-0 md:col-span-2 sm:text-base md:px-2 px-1 py-2"
+            className="text-sm outline-0 col-span-6 border-b border-b-gray-200 md:border-b-0 md:col-span-2 sm:text-base md:px-2 px-1 py-2"
             placeholder="Item-name"
           />
           <input
             value={quantity}
             onChange={(e) => setQuantity(Number(e.target.value))}
             type="number"
-            className="py-2 col-span-2 md:col-span-1 border-r border-gray-200 md:px-2"
+            className="py-2 outline-0 col-span-1 md:col-span-1 border-r border-gray-200 md:px-2"
             placeholder="Count"
           />
           <input
             value={unit}
             onChange={(e) => setUnit(e.target.value)}
             type="text"
-            className="py-2 col-span-1 border-r border-r-gray-200 md:px-2"
+            className="py-2 outline-0 col-span-1 border-r border-r-gray-200 md:px-2"
             placeholder="Unit"
           />
           <input
             value={price}
             onChange={(e) => setPrice(Number(e.target.value))}
             type="number"
-            className="py-2 col-span-1 border-r border-r-gray-200 md:px-2"
+            className="py-2 outline-0 col-span-2 md:col-span-1 border-r border-r-gray-200 md:px-2"
             placeholder="Price"
           />
           <span className="col-span-2 md:col-span-1">
@@ -291,105 +174,6 @@ function GiveItem({ item, onDelete, updateList }) {
     </li>
   );
 }
-
-// function GiveItem({
-//   onDelete,
-//   item,
-//   updateList,
-//   setOpenedItemId,
-//   openedItemId,
-// }) {
-//   const [name, setName] = useState("");
-//   const [quantity, setQuantity] = useState("");
-//   const [unit, setUnit] = useState("");
-//   const [price, setPrice] = useState("");
-
-//   function handleSubmit(e) {
-//     e.preventDefault();
-//   }
-
-//   // function handleDeleteItem() {
-//   //   onDelete(item.id);
-//   // }
-
-//   // function handleEditItem() {
-//   //   const editedItem = {
-//   //     id: item.id,
-//   //     name,
-//   //     quantity,
-//   //     unit,
-//   //     price,
-//   //     checked: false,
-//   //   };
-//   // Call the function to update the list with the edited item
-//   // (You need to define this function in the parent component)
-//   //   updateList(editedItem);
-//   //   setOpenedItemId(null);
-//   // }
-
-//   return (
-//     <li>
-//       {/* {item.id === openedItemId ? ( */}
-//       <form
-//         onSubmit={(e) => handleSubmit(e)}
-//         className="grid grid-cols-6 items-center mx-2 md:mx-3 space-x-2 md:divide-x-2 md:divide-dashed md:divide-gray-400 border border-gray-300"
-//       >
-//         <input
-//           value={name}
-//           onChange={(e) => setName(e.target.value)}
-//           type="text"
-//           className="text-sm col-span-6 border-b border-b-gray-200 md:border-b-0 md:col-span-2 sm:text-base md:px-2 px-1 py-2 input-createlist"
-//           placeholder="Item-name"
-//         />
-//         <input
-//           value={quantity}
-//           onChange={(e) => setQuantity(Number(e.target.value))}
-//           type="number"
-//           className="py-2 col-span-2 md:col-span-1 border-r border-gray-200 input-createlist md:px-2"
-//           placeholder="Count"
-//         />
-//         <input
-//           value={unit}
-//           onChange={(e) => setUnit(e.target.value)}
-//           type="text"
-//           className="py-2 col-span-1 border-r border-r-gray-200 input-createlist md:px-2"
-//           placeholder="Unit"
-//         />
-//         <input
-//           value={price}
-//           onChange={(e) => setPrice(Number(e.target.value))}
-//           type="number"
-//           className="py-2 col-span-1 border-r border-r-gray-200 input-createlist md:px-2"
-//           placeholder="price"
-//         />
-//         <span className="col-span-2 md:col-span-1">
-//           <EditItemBtn bgColor={"#CC2B52"}>&#215;</EditItemBtn>
-
-//           <EditItemBtn bgColor={"#8644A2"}>&#10003;</EditItemBtn>
-//         </span>
-//       </form>
-//       {/* ) : (
-//         <ListItem item={item} handleDeleteItem={handleDeleteItem} />
-//       )} */}
-//     </li>
-//   );
-// }
-
-// function ListItem({ item, handleDeleteItem }) {
-//   return (
-//     <li className="flex justify-between px-4 mx-3 bg-gray-100 py-3">
-//       <p>
-//         {item.name}({item.quantity} {item.unit} , price : {item.price})
-//       </p>
-//       <div className="space-x-4">
-//         <EditListItemBtn color={"green"}>&#9998; Edit</EditListItemBtn>
-//         <EditListItemBtn clickOn={handleDeleteItem} color={"#CC2B52"}>
-//           &#10006; Delete
-//         </EditListItemBtn>
-//       </div>
-//     </li>
-//   );
-// }
 
 function ListItem({ item, onDelete, onEdit }) {
   return (
